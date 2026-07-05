@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://example.pages.dev/sitemap.xml
+Sitemap: https://starter-tools-website.rishibanota.workers.dev/sitemap.xml
