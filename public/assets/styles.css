@@ -517,6 +517,10 @@ textarea::placeholder { color: #7e8fb4; }
   background: rgba(255,255,255,0.03);
 }
 
+html.ads-disabled .ad-card {
+  display: none !important;
+}
+
 .breadcrumbs {
   display: flex;
   gap: 0.6rem;

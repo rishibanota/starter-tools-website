@@ -13,7 +13,9 @@
     "slug-generator": 'This is a sample heading for your next blog post!',
     "sha256-generator": 'hash this text',
     "jwt-decoder": 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiVGVzdCBVc2VyIiwicm9sZSI6Im1lbWJlciIsImlhdCI6MTcxNzIwMDAwMH0.signature',
-    "timestamp-converter": '1719907200'
+    "timestamp-converter": '1719907200',
+    "word-counter": 'This is a sample text. It has some words and some characters.\n\nAnd a second paragraph.',
+    "color-converter": '#6d5efc'
   };
 
   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -816,9 +818,9 @@
 
   function mountAdsense() {
     if (!SITE_CONFIG.adsense_client || !SITE_CONFIG.enable_auto_ads) {
-      document.documentElement.classList.add('ads-disabled');
       return;
     }
+    document.documentElement.classList.remove('ads-disabled');
     if (document.querySelector('script[data-adsense-script]')) return;
     const script = document.createElement('script');
     script.async = true;
@@ -966,6 +968,138 @@
         break;
       case 'percentage-calculator':
         renderPercentageCalculator(root, tool);
+        break;
+      case 'word-counter':
+        renderTextTool(root, tool, {
+          runLabel: 'Count words & characters',
+          steps: ['Reading text', 'Analyzing characters and words', 'Formatting output'],
+          compute: async (input) => {
+            const text = input || '';
+            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            const chars = text.length;
+            const charsNoSpace = text.replace(/\s/g, '').length;
+            const paragraphs = text.trim() ? text.split(/\n\s*\n/).length : 0;
+            return `Words: ${words}\nCharacters: ${chars}\nCharacters (no spaces): ${charsNoSpace}\nParagraphs: ${paragraphs}`;
+          }
+        });
+        break;
+      case 'password-generator':
+        renderTextTool(root, tool, {
+          runLabel: 'Generate Password',
+          steps: ['Gathering requirements', 'Generating random bytes', 'Building strong password'],
+          extraControls: `
+            <div class="field-group">
+              <label for="pwd-length">Password Length</label>
+              <input id="pwd-length" class="text-input" type="number" min="4" max="128" value="16" />
+            </div>
+            <div class="field-group">
+              <label><input type="checkbox" id="pwd-upper" checked /> Uppercase (A-Z)</label>
+              <br>
+              <label><input type="checkbox" id="pwd-lower" checked /> Lowercase (a-z)</label>
+              <br>
+              <label><input type="checkbox" id="pwd-numbers" checked /> Numbers (0-9)</label>
+              <br>
+              <label><input type="checkbox" id="pwd-symbols" checked /> Symbols (!@#$)</label>
+            </div>
+          `,
+          compute: async (input, localRoot) => {
+            const len = parseInt(qs('#pwd-length', localRoot).value, 10) || 16;
+            const useUpper = qs('#pwd-upper', localRoot).checked;
+            const useLower = qs('#pwd-lower', localRoot).checked;
+            const useNum = qs('#pwd-numbers', localRoot).checked;
+            const useSym = qs('#pwd-symbols', localRoot).checked;
+            
+            const upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const lower = 'abcdefghijklmnopqrstuvwxyz';
+            const numbers = '0123456789';
+            const symbols = '!@#$%^&*()_+~`|}{[]:;?><,./-=';
+            
+            let charset = '';
+            if (useUpper) charset += upper;
+            if (useLower) charset += lower;
+            if (useNum) charset += numbers;
+            if (useSym) charset += symbols;
+            
+            if (!charset) throw new Error('Please select at least one character type.');
+            
+            let password = '';
+            const array = new Uint32Array(len);
+            crypto.getRandomValues(array);
+            for (let i = 0; i < len; i++) {
+              password += charset[array[i] % charset.length];
+            }
+            return password;
+          }
+        });
+        break;
+      case 'uuid-generator':
+        renderTextTool(root, tool, {
+          runLabel: 'Generate UUID',
+          steps: ['Initializing random number generator', 'Creating UUID v4 sequence', 'Formatting output'],
+          extraControls: `
+            <div class="field-group">
+              <label for="uuid-count">Number of UUIDs</label>
+              <input id="uuid-count" class="text-input" type="number" min="1" max="1000" value="1" />
+            </div>
+          `,
+          compute: async (input, localRoot) => {
+            const count = parseInt(qs('#uuid-count', localRoot).value, 10) || 1;
+            const uuids = [];
+            for (let i = 0; i < count; i++) {
+              uuids.push(crypto.randomUUID());
+            }
+            return uuids.join('\n');
+          }
+        });
+        break;
+      case 'color-converter':
+        renderTextTool(root, tool, {
+          runLabel: 'Convert Color',
+          steps: ['Parsing input color', 'Converting to RGB/HSL/HEX', 'Formatting outputs'],
+          extraControls: '<p class="muted" style="margin-bottom: 0.5rem">Enter a HEX, RGB, or HSL value above to convert it.</p>',
+          compute: async (input) => {
+             const div = document.createElement('div');
+             div.style.color = input.trim();
+             if (!div.style.color) throw new Error('Invalid color format.');
+             document.body.appendChild(div);
+             const rgb = window.getComputedStyle(div).color;
+             document.body.removeChild(div);
+             
+             const match = rgb.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+             if (!match) throw new Error('Could not parse color.');
+             const r = parseInt(match[1]);
+             const g = parseInt(match[2]);
+             const b = parseInt(match[3]);
+             const a = match[4] !== undefined ? parseFloat(match[4]) : 1;
+             
+             const toHex = c => c.toString(16).padStart(2, '0');
+             const hex = '#' + toHex(r) + toHex(g) + toHex(b) + (a < 1 ? toHex(Math.round(a * 255)) : '');
+             
+             const rNorm = r / 255; const gNorm = g / 255; const bNorm = b / 255;
+             const max = Math.max(rNorm, gNorm, bNorm);
+             const min = Math.min(rNorm, gNorm, bNorm);
+             let h, s, l = (max + min) / 2;
+             if (max === min) {
+               h = s = 0;
+             } else {
+               const d = max - min;
+               s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+               switch(max) {
+                 case rNorm: h = (gNorm - bNorm) / d + (gNorm < bNorm ? 6 : 0); break;
+                 case gNorm: h = (bNorm - rNorm) / d + 2; break;
+                 case bNorm: h = (rNorm - gNorm) / d + 4; break;
+               }
+               h /= 6;
+             }
+             
+             const hDeg = Math.round(h * 360);
+             const sPct = Math.round(s * 100);
+             const lPct = Math.round(l * 100);
+             const hsl = a < 1 ? `hsla(${hDeg}, ${sPct}%, ${lPct}%, ${a})` : `hsl(${hDeg}, ${sPct}%, ${lPct}%)`;
+             
+             return `HEX: ${hex}\nRGB: ${rgb}\nHSL: ${hsl}`;
+          }
+        });
         break;
       default:
         root.innerHTML = '<p>This tool is not configured yet.</p>';
