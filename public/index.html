@@ -4,10 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ToolMint - Browser Side Utility Tools</title>
-  <meta name="description" content="ToolMint is a privacy-friendly collection of online utilities for text, developer data, images, and everyday calculators. Most tools run directly in your browser for speed, privacy, and zero server cost." />
+  <meta name="description" content="ToolMint is a privacy-friendly collection of online utilities for text, developer data, images, and everyday calculators. All tools run directly in your browser." />
   <link rel="canonical" href="https://starter-tools-website.rishibanota.workers.dev/" />
   <meta property="og:title" content="ToolMint - Browser Side Utility Tools" />
-  <meta property="og:description" content="ToolMint is a privacy-friendly collection of online utilities for text, developer data, images, and everyday calculators. Most tools run directly in your browser for speed, privacy, and zero server cost." />
+  <meta property="og:description" content="ToolMint is a privacy-friendly collection of online utilities for text, developer data, images, and everyday calculators. All tools run directly in your browser." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://starter-tools-website.rishibanota.workers.dev/" />
   <meta name="theme-color" content="#6d5efc" />
@@ -30,28 +30,28 @@
     <section class="hero">
       <div class="container hero-grid">
         <div>
-          <span class="eyebrow">Fast. Private. Search-friendly.</span>
-          <h1>Fast, private browser tools that work without uploads or logins.</h1>
-          <p class="hero-copy">ToolMint is a privacy-friendly collection of online utilities for text, developer data, images, and everyday calculators. Most tools run directly in your browser for speed, privacy, and zero server cost. This starter kit is designed for Cloudflare Pages and can be monetized later with AdSense once your content and policy pages are ready.</p>
+          <span class="eyebrow">Fast. Private. Simple.</span>
+          <h1>Fast, private browser tools.</h1>
+          <p class="hero-copy">ToolMint is a privacy-friendly collection of online utilities for text, developer data, images, and everyday calculators. All tools run directly in your browser.</p>
           <div class="hero-actions">
             <a class="btn btn-primary" href="#all-tools">Browse tools</a>
-            <a class="btn btn-secondary" href="/about/">Read the setup notes</a>
+            <a class="btn btn-secondary" href="/about/">Learn more</a>
           </div>
           <div class="stat-row">
-            <div class="stat"><strong>17</strong><span>starter tools</span></div>
-            <div class="stat"><strong>100%</strong><span>browser-side by default</span></div>
-            <div class="stat"><strong>SEO</strong><span>friendly static pages</span></div>
+            <div class="stat"><strong>21</strong><span>tools</span></div>
+            <div class="stat"><strong>100%</strong><span>browser-side</span></div>
+            <div class="stat"><strong>Fast</strong><span>and private</span></div>
           </div>
         </div>
         <div class="hero-panel">
           <div class="preview-card">
             <div class="preview-top"><span></span><span></span><span></span></div>
-            <h3>Built for long-run efficiency</h3>
+            <h3>Why use ToolMint?</h3>
             <ul>
-              <li>Static multipage layout for better indexing</li>
-              <li>Friendly progress UI to improve user trust</li>
-              <li>Clean internal linking for discoverability</li>
-              <li>Optional Cloudflare Worker for health checks</li>
+              <li>Instant results with no server delays</li>
+              <li>Your data never leaves your device</li>
+              <li>No accounts or logins required</li>
+              <li>Clean, distraction-free interface</li>
             </ul>
           </div>
         </div>
@@ -62,7 +62,6 @@
       <div class="container">
         <div class="section-heading">
           <h2>Pick a category</h2>
-          <p>Start with a focused utility cluster and expand only after you see search demand.</p>
         </div>
         <div class="category-grid">
             <a class="category-card" href="/category/developer/">
@@ -100,8 +99,7 @@
       <div class="container">
         <div class="section-heading spread">
           <div>
-            <h2>All starter tools</h2>
-            <p>Every tool below has its own static landing page so it can rank individually.</p>
+            <h2>All tools</h2>
           </div>
           <div class="search-wrap">
             <input id="tool-search" class="search-input" type="search" placeholder="Search tools like json, image, gst..." aria-label="Search tools" />
@@ -293,33 +291,62 @@
       <p>Handle common percentage problems with one friendly calculator.</p>
       <a class="tool-link" href="/tools/percentage-calculator/">Open tool <span aria-hidden="true">→</span></a>
     </article>
+    
+
+    <article class="tool-card" data-category="text" data-search="word &amp; character counter count words, characters, and paragraphs instantly.">
+      <div class="tool-card-top">
+        <span class="tool-icon">📝</span>
+        <span class="pill">Text</span>
+      </div>
+      <h3><a href="/tools/word-counter/">Word &amp; Character Counter</a></h3>
+      <p>Count words, characters, and paragraphs instantly.</p>
+      <a class="tool-link" href="/tools/word-counter/">Open tool <span aria-hidden="true">→</span></a>
+    </article>
+    
+
+    <article class="tool-card" data-category="developer" data-search="password generator generate strong, secure passwords locally in your browser.">
+      <div class="tool-card-top">
+        <span class="tool-icon">🔑</span>
+        <span class="pill">Developer</span>
+      </div>
+      <h3><a href="/tools/password-generator/">Password Generator</a></h3>
+      <p>Generate strong, secure passwords locally in your browser.</p>
+      <a class="tool-link" href="/tools/password-generator/">Open tool <span aria-hidden="true">→</span></a>
+    </article>
+    
+
+    <article class="tool-card" data-category="developer" data-search="uuid v4 generator generate random uuids (universally unique identifiers).">
+      <div class="tool-card-top">
+        <span class="tool-icon">🆔</span>
+        <span class="pill">Developer</span>
+      </div>
+      <h3><a href="/tools/uuid-generator/">UUID v4 Generator</a></h3>
+      <p>Generate random UUIDs (Universally Unique Identifiers).</p>
+      <a class="tool-link" href="/tools/uuid-generator/">Open tool <span aria-hidden="true">→</span></a>
+    </article>
+    
+
+    <article class="tool-card" data-category="developer" data-search="color converter convert colors between hex, rgb, and hsl formats.">
+      <div class="tool-card-top">
+        <span class="tool-icon">🎨</span>
+        <span class="pill">Developer</span>
+      </div>
+      <h3><a href="/tools/color-converter/">Color Converter</a></h3>
+      <p>Convert colors between HEX, RGB, and HSL formats.</p>
+      <a class="tool-link" href="/tools/color-converter/">Open tool <span aria-hidden="true">→</span></a>
+    </article>
     </div>
       </div>
     </section>
 
-    <section class="section soft-section">
-      <div class="container info-grid">
-        <article class="info-card">
-          <h3>Why this architecture works</h3>
-          <p>Cloudflare Pages is a good fit for utility sites because static pages are cheap, fast, and easy to cache. Browser-side tools reduce your backend cost and simplify privacy messaging.</p>
-        </article>
-        <article class="info-card">
-          <h3>How to grow it later</h3>
-          <p>Add more tool pages around real search terms, write short helpful content per tool, and only introduce backend processing when a browser cannot do the job.</p>
-        </article>
-        <article class="info-card">
-          <h3>Monetize carefully</h3>
-          <p>Focus first on quality pages, legal pages, and a good user experience. Then enable AdSense or a similar ad network once the site looks complete and policy-compliant.</p>
-        </article>
-      </div>
-    </section>
+
     
     </main>
     <footer class="site-footer">
       <div class="container footer-grid">
         <div>
           <h3>ToolMint</h3>
-          <p>ToolMint is a privacy-friendly collection of online utilities for text, developer data, images, and everyday calculators. Most tools run directly in your browser for speed, privacy, and zero server cost.</p>
+          <p>ToolMint is a privacy-friendly collection of online utilities for text, developer data, images, and everyday calculators. All tools run directly in your browser.</p>
           <p class="muted">© 2026 ToolMint. Built for fast browser-side tools.</p>
         </div>
         <div>
@@ -331,7 +358,7 @@
           <ul class="footer-list">
             <li>Most tools run locally in the browser</li>
             <li>No login wall or forced upload</li>
-            <li>Cloudflare Pages friendly static output</li>
+            <li>Fast static pages</li>
           </ul>
         </div>
       </div>
